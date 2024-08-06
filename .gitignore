@@ -1,0 +1,21 @@
+#Ignore crd.ini
+/root/gauno/python/scripts/crd.ini
+
+# Ignore dir logs
+logs/
+
+# Ignore venvs
+venv/
+myenv/
+
+# Ignore temp files
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Ignore output and shit
+build/
+dist/
+*.pyc
+__pycache__/
