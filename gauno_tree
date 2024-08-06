@@ -1,0 +1,65 @@
+network_automation/
+├── ansible/
+│   ├── playbooks/
+│   │   ├── add_devices.yml
+│   │   ├── update_inventory.yml
+│   │   ├── gather_facts.yml
+│   │   └── other_playbooks.yml
+│   ├── roles/
+│   │   └── common/
+│   │       ├── tasks/
+│   │       ├── handlers/
+│   │       ├── templates/
+│   │       ├── files/
+│   │       └── vars/
+│   └── inventory/
+│       ├── hosts.yml
+│       └── group_vars/
+├── jenkins/
+│   ├── pipelines/
+│   │   ├── deploy_pipeline.groovy
+│   │   ├── test_pipeline.groovy
+│   │   └── other_pipelines.groovy
+│   └── jobs/
+│       ├── add_device_job.xml
+│       ├── update_inventory_job.xml
+│       └── other_jobs.xml
+├── netbox/
+│   ├── scripts/
+│   │   ├── add_devices_to_netbox.py
+│   │   ├── update_devices_in_netbox.py
+│   │   └── other_scripts.py
+│   └── config/
+│       └── netbox_config.yml
+├── python/
+│   ├── scripts/
+│   │   ├── data_collection.py
+│   │   ├── data_parsing.py
+│   │   ├── add_device.py
+│   │   └── other_scripts.py
+│   ├── requirements.txt
+│   └── utils/
+│       ├── helper_functions.py
+│       └── other_utils.py
+├── docs/
+│   ├── README.md
+│   ├── INSTALLATION.md
+│   ├── USAGE.md
+│   └── ARCHITECTURE.md
+├── tests/
+│   ├── ansible/
+│   │   ├── test_add_devices.yml
+│   │   ├── test_update_inventory.yml
+│   │   └── other_tests.yml
+│   ├── python/
+│   │   ├── test_data_collection.py
+│   │   ├── test_data_parsing.py
+│   │   └── other_tests.py
+│   └── jenkins/
+│       ├── test_deploy_pipeline.groovy
+│       ├── test_add_device_job.xml
+│       └── other_tests.xml
+├── .gitignore
+├── Jenkinsfile
+└── Makefile
+
