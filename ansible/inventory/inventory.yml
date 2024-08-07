@@ -1,43 +1,29 @@
 all:
   hosts:
     R1:
-        host.hw.type: asr9k
-        host.platform: ASR9k
-        host.platform.id: 2
-        host.name: R1
-        host.site: SITE1
-        host.role: GW
-        host.role.id: 1
-        host.site.id: 2
-        host.dev.type.id: 3
-        host.dev.type: ASR9010
-          #host.ip.addr: 1.1.1.1
-        host.oob.ip: 10.0.0.3
-        ansible_user: "GAUNO"
-        ansible_password: "sasasa"
+      ansible_host: 10.0.0.3
+      ansible_user: GAUNO
+      ansible_password: sasasa
+      ansible_network_os: iosxr
+      ansible_connection: network_cli
+      role: 2
+      site: 2
+      device_type: 1
     R2:
-        host.hw.type: xrv
-        host.name: R2
-        host.site: SITE2
-        host.role: AGG
-        host.role.id: 2
-        host.site.id: 4
-        host.dev.type.id: 1
-        host.dev.type: IOS-XRv 9000
-          #host.ip.addr: 1.1.1.1
-        host.oob.ip: 10.0.0.2
-        ansible_user: "GAUNO"
-        ansible_password: "sasasa"
+      ansible_host: 10.0.0.2
+      ansible_user: GAUNO
+      ansible_password: sasasa
+      ansible_network_os: iosxr
+      ansible_connection: network_cli
+      role: 1
+      site: 2
+      device_type: 1
     R3:
-        host.hw.type: ncs54
-        host.name: R3
-        host.site: SITE3
-        host.site.id: 3
-        host.role: CSG
-        host.role.id: 3
-        host.dev.type.id: 3
-        host.dev.type: NCS540
-          #host.ip.addr: 1.1.1.1
-        host.oob.ip: 10.0.0.7
-        ansible_user: "GAUNO"
-        ansible_password: "sasasa"
+      ansible_host: 10.0.0.7
+      ansible_user: GAUNO
+      ansible_password: sasasa
+      ansible_network_os: iosxr
+      ansible_connection: network_cli
+      role: 3
+      site: 2
+      device_type: 1
