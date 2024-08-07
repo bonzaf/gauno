@@ -1,4 +1,5 @@
-routers:
+all:
+  hosts:
     0038ff2792c1445c95290c6da074285d:
         host.hw.type: asr9k
         host.platform: ASR9k

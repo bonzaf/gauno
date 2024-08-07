@@ -1,0 +1,14 @@
+---
+# tasks file for configure_xr_interfaces
+---
+- name: Configure interface settings
+  cisco.iosxr.iosxr_config:
+    lines:
+      - description "{{ description }}"
+      - ip address {{ ip_address }} {{ netmask }}
+    parents: interface {{ interface }}
+  register: config_output
+
+- name: Show output from configuration task
+  debug:
+    var: config_output

@@ -1,0 +1,12 @@
+---
+R1:
+  description: "Interface to LAN"
+  ip_address: "192.168.1.1"
+  netmask: "255.255.255.0"
+  interface: "GigabitEthernet0/3"
+R3:
+  description: "Interface to DMZ"
+  ip_address: "192.168.2.1"
+  netmask: "255.255.255.0"
+  interface: "GigabitEthernet0/4"
+
