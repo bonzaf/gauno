@@ -35,7 +35,7 @@ pipeline {
                         credentialsId: '290f0e1c-a844-4983-99c9-5dcb0d21c2e0',
                         disableHostKeyChecking: true,
                         installation: 'Ansible',
-                        inventory: 'ansible/inventory/hosts.yml',
+                        inventory: 'ansible/inventory/inventory.yml',
                         playbook: 'ansible/playbooks/rolePB_xr_intf.yml',
                         extraVars: [
                             "ansible_vault_password_file": vaultPasswordFile
