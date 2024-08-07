@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   vars_files:
-    - ../ansible/vault.yml
+    - ../roles/configure_xr_interfaces/vars/devices_vars.yml
   tasks:
     - name: Ensure the router's SSH key is in known_hosts
       ansible.builtin.known_hosts:
