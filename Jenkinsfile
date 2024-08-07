@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yourusername/your-repo.git'
+                git branch: 'main', url: 'https://github.com/bonzaf/gauno.git'
             }
         }
         stage('Setup Python Environment') {
@@ -21,10 +21,27 @@ pipeline {
         }
         stage('Run Ansible Playbook') {
             environment {
-                VAULT_PASSWORD = credentials('vault-password-id') // 'vault-password-id' - это ID ваших учетных данных в Jenkins
+                VAULT_PASSWORD = credentials('290f0e1c-a844-4983-99c9-5dcb0d21c2e0') // 'vault-password-id' - это ID ваших учетных данных в Jenkins
             }
             steps {
-                ansiblePlaybook colorized: true, credentialsId: 'your-credentials-id', disableHostKeyChecking: true, installation: 'Ansible', inventory: 'ansible/inventory/hosts.yml', playbook: 'ansible/playbooks/rolePB_xr_intf.yml', extraVars: '--vault-password-file=<(echo ${VAULT_PASSWORD})'
+                script {
+                    // Create a temporary file to store the vault password
+                    def vaultPasswordFile = "${WORKSPACE}/vault_password.txt"
+                    writeFile file: vaultPasswordFile, text: VAULT_PASSWORD
+                    sh "chmod 600 ${vaultPasswordFile}"
+                    
+                    ansiblePlaybook(
+                        colorized: true,
+                        credentialsId: '290f0e1c-a844-4983-99c9-5dcb0d21c2e0',
+                        disableHostKeyChecking: true,
+                        installation: 'Ansible',
+                        inventory: 'ansible/inventory/hosts.yml',
+                        playbook: 'ansible/playbooks/rolePB_xr_intf.yml',
+                        extraVars: [
+                            "ansible_vault_password_file": vaultPasswordFile
+                        ]
+                    )
+                }
             }
         }
         stage('Update NetBox') {
