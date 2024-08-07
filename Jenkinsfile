@@ -16,7 +16,7 @@ pipeline {
         stage('Setup Python Environment') {
             steps {
                 sh 'python3 -m venv venv'
-                sh '${PYTHON} -m pip install -r requirements.txt'
+		sh '${WORKSPACE}/venv/bin/pip install -r requirements.txt'
             }
         }
         stage('Run Ansible Playbook') {
