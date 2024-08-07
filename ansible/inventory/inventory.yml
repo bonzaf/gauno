@@ -13,8 +13,8 @@ all:
         host.dev.type: ASR9010
         host.ip.addr: 1.1.1.1
         host.oob.ip: 10.0.0.3
-        ansible_user: "{{ vault_username }}"
-        ansible_password: "{{ vault_password }}"
+        ansible_user: "GAUNO"
+        ansible_password: "sasasa"
     00b3ba6b701e4615ba55ef4db9a2f902:
         host.hw.type: xrv
         host.name: R2
@@ -26,8 +26,8 @@ all:
         host.dev.type: IOS-XRv 9000
         host.ip.addr: 1.1.1.1
         host.oob.ip: 10.0.0.2
-        ansible_user: "{{ vault_username }}"
-        ansible_password: "{{ vault_password }}"
+        ansible_user: "GAUNO"
+        ansible_password: "sasasa"
     01500aaff0b04fdd89f323da70be90d7:
         host.hw.type: ncs54
         host.name: R3
@@ -39,5 +39,5 @@ all:
         host.dev.type: NCS540
         host.ip.addr: 1.1.1.1
         host.oob.ip: 10.0.0.7
-        ansible_user: "{{ vault_username }}"
-        ansible_password: "{{ vault_password }}"
+        ansible_user: "GAUNO"
+        ansible_password: "sasasa"
