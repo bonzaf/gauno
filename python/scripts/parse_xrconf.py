@@ -1,8 +1,8 @@
 import yaml
 import re
+import sys
 from ciscoconfparse import CiscoConfParse
 from pprint import pprint
-import sys
 
 def parse_config_file(file_path_list):
     results = []
@@ -305,7 +305,7 @@ def parse_config_file(file_path_list):
         results.append(result)
 
         # Write the result to a YAML file
-        output_file_path = f"/root/my_repo/my_python/parsed_dev_data/{hostname}_parsed_config.yaml"
+        output_file_path = f"/root/gauno/python/parsed_data/{hostname}_parsed_config.yaml"
         with open(output_file_path, 'w') as file:
             yaml.dump(result, file, default_flow_style=False)
         print(f"Configuration has been parsed and saved to {output_file_path}")
@@ -321,3 +321,4 @@ if __name__ == "__main__":
     parsed_data = parse_config_file(config_file_path_list)
 
     pprint(parsed_data)
+

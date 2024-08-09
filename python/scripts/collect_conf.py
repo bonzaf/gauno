@@ -1,23 +1,15 @@
-import ipaddress
-import sys
+import argparse
 import configparser
-import yaml
-from pprint import pprint
-import time
-import datetime
-import re
-from netmiko import (
-    ConnectHandler,
-    NetMikoAuthenticationException,
-    NetmikoTimeoutException,
-    ReadTimeout
-)
-from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
-import logging
-import pickle
+import ipaddress
 import os
+import pickle
+import sys
 import time
+import yaml
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime
+from netmiko import ConnectHandler, NetMikoAuthenticationException, NetmikoTimeoutException, ReadTimeout
+from pprint import pprint
 
 startTime = time.time()
 
@@ -25,7 +17,6 @@ def dev_connect(ip_list):
     config = configparser.ConfigParser()
     username = ''
     password = ''
-    pprint(ip_list)
     try:
         config.read('crd.ini')
         username = config.get('Credentials', 'username')
@@ -124,15 +115,13 @@ def send_to_devs(params_dict, inventory_file, limit=10):
         for future in as_completed(futures):
             result = future.result()
             for ip, command in result[0].items():
-                pprint(ip)
                 cmd_all_devices_output_dict[ip_to_host_id[ip]] = command
                 all_commands_output = ""
                 for cmd, output in command.items():
                     for prmt, com in output.items():
                         all_commands_output += com + "\n"
 
-                filename = f'{ip}_conf.txt'
-                pprint(filename)
+                filename = f'/root/gauno/python/collected_data/{ip}_conf.txt'
                 with open(filename, 'w') as f_n:
                     f_n.write(all_commands_output)
 
@@ -151,12 +140,6 @@ def send_command_mark1(device_data, command_list):
     error_ip_str = ''
     ip = device_data['ip']
     command_output_dict[ip] = {}
-    logging.getLogger('netmiko').setLevel(logging.WARNING)
-    logging.basicConfig(format='%(threadName)s %(name)s %(levelname)s: %(message)s', level=logging.INFO)
-    start_msg = '===> {} Connection: {}'
-    received_msg = '<=== {} Received:   {}'
-    logging.info(start_msg.format(datetime.now().time(), ip))
-    pprint(device_data)
     try:
         with ConnectHandler(**device_data) as ssh:
             ssh.enable()
@@ -177,11 +160,15 @@ def send_command_mark1(device_data, command_list):
                             for dynamic_cmd in extracted_data:
                                 cmd_out = ssh.send_command(dynamic_cmd)
                                 command_output_dict[ip][dynamic_cmd] = {prompt + dynamic_cmd: prompt + dynamic_cmd + cmd_out}
-            logging.info(received_msg.format(datetime.now().time(), ip))
     except (NetmikoTimeoutException, NetMikoAuthenticationException, ReadTimeout) as error:
         error_ip_str += f"Connection error: {ip}\n{error}\n{'*' * 100}\n"
     return command_output_dict, error_ip_str
 
 if __name__ == "__main__":
-    collect_datas('msn_iosxr.yaml', 'basic_collect_cmds.yaml')
+    parser = argparse.ArgumentParser(description="Collect configurations from network devices")
+    parser.add_argument("inventory_file", help="Path to the inventory file")
+    parser.add_argument("commands_file", help="Path to the commands file")
+    args = parser.parse_args()
+
+    collect_datas(args.inventory_file, args.commands_file)
 

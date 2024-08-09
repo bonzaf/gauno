@@ -1,6 +1,5 @@
+import argparse
 import pynetbox
-from pprint import pprint
-import configparser
 import yaml
 import ipaddress
 import sys
@@ -110,18 +109,16 @@ def load_config_files(file_paths):
     return parsed_data
 
 if __name__ == "__main__":
-    if len(sys.argv) < 3:
-        print("Usage: python script.py <msn_iosxr.yaml> <config_file1> <config_file2> ...")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="Add or update devices in NetBox")
+    parser.add_argument("device_info_file", help="Path to the device info file")
+    parser.add_argument("config_files", nargs='+', help="Paths to the configuration files")
+    args = parser.parse_args()
 
-    device_info_file = sys.argv[1]
-    config_file_paths = sys.argv[2:]
-
-    with open(device_info_file, 'r') as file:
+    with open(args.device_info_file, 'r') as file:
         device_data = yaml.safe_load(file)
 
     for device_id, device_info in device_data['data'].items():
-        config_files = [file for file in config_file_paths if device_info['host.name'] in file]
+        config_files = [file for file in args.config_files if device_info['host.name'] in file]
         if not config_files:
             print(f"No config file found for device {device_info['host.name']}")
             continue
